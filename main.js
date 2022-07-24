@@ -5,6 +5,11 @@ if(version === 'core') version = 'coreapp';
 
 const baseNetAppPath = path.join(__dirname, '/src/'+ namespace +'/bin/Debug/net'+ version +'2.0');
 
+//to solve error: CoreClrEmbedding::Initialize - Could not resolve CoreCLR path. edge.initializeClrFunc is not a function
+//should match directory name in C:\Program Files\dotnet\shared\Microsoft.NETCore.App\
+//it works for sure with major versions from 2 to 5, but not for 6
+process.env.CORECLR_VERSION = '5.0.17';
+
 process.env.EDGE_USE_CORECLR = 1;
 if(version !== 'standard')
     process.env.EDGE_APP_ROOT = baseNetAppPath;
